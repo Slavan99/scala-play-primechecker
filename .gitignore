@@ -3,6 +3,11 @@
 *.log
 tmp
 dump
+.idea
+/*.iml
+out
+.idea_modules
+
 
 # Eclipse
 .settings
@@ -23,3 +28,5 @@ target
 # Play
 logs
 RUNNING_PID
+LICENSE
+NOTICE
