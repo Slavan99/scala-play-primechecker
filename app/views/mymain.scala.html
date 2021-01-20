@@ -1,0 +1,90 @@
+@(text: String, histories: Seq[(java.sql.Timestamp, Long, Int, Boolean, Int)], algorithms: Seq[String])(implicit assetsFinder: AssetsFinder)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @* Here's where we render the page title `String`. *@
+    <title>@text</title>
+    <style>
+    table, td, th {
+    border: 1px solid black;
+    }
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+    </style>
+    <link rel="stylesheet" media="screen" href="@assetsFinder.path(" stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@assetsFinder.path(" images/favicon.png")">
+    <script src="@assetsFinder.path(" javascripts/hello.js")" type="text/javascript"></script>
+
+    </head>
+    <body>
+
+        @* And here's where we render the `Html` object containing
+         * the page content. *@
+        @text
+        <big>
+        <font size=5>
+            Welcome! You can check the primality of any number. Use the form below!
+        </font>
+        </big>
+
+        <br></br>
+
+        <div>
+            <form method="post" action="">
+                <div>
+                    <label for="number">Number to check</label>
+                    <input type="text" id="number" name="number"/><br/>
+                </div>
+                <div>
+                <label> Algorithm :
+                    <select name="name" id="algoSelect">
+                        @for(algo <- algorithms){
+                            <option name=algo>@algo</option>
+                            }
+                    </select>
+                    </label>
+                </div>
+                <div>
+                    <label>Iteration number :
+                        <input type="text" name="iterations"/>
+                    </label>
+                </div>
+                <div>
+                    <input type="submit" value="Check prime" name="login"/>
+                </div>
+            </form>
+        </div>
+        <br/>
+        <table>
+        <tr>
+        <th>Date and time of check</th>
+        <th>Number</th>
+        <th>Iteration count</th>
+        <th>Result</th>
+        <th>Algorithm</th>
+        </tr>
+        @for(history <- histories) {
+        <tr>
+            <td>@history._1</td>
+            <td>@history._2</td>
+            <td>@history._3</td>
+            <td>@history._4</td>
+            @{
+            history._5 match {
+                    case 1 => <td>Trial</td>
+                    case 2 => <td>Fermat</td>
+                    case 3 => <td>Miller-Rabin</td>
+                    case 4 => <td>Solovay-Strassen</td>
+                    case _ => <td>Unknown algorithm</td>
+                }
+
+            }
+
+        </tr>
+        }
+        </table>
+    </body>
+</html>

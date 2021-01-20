@@ -1,0 +1,17 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+#GET     /main                       controllers.MainController.index
+ + nocsrf
+POST    /                       controllers.MainController.postRequest
+
+# An example controller showing a sample home page
+GET     /                           controllers.MainController.index
+# An example controller showing how to use dependency injection
+#GET     /count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+#GET     /message                    controllers.AsyncController.message
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(file)
